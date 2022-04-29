@@ -41,7 +41,7 @@ const urlBase = "http://localhost:8983/solr"
 func GetQuery(core, query string) []Docs {
 	format := "%s/%s/query?q=%s"
 	url := fmt.Sprintf(format, urlBase, core, query)
-	fmt.Println(url)
+
 	client := &http.Client{}
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
