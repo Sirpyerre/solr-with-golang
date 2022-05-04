@@ -26,6 +26,9 @@ go run main.go
 For example in web browser type:
 `http://localhost/?title=desarrollador`
 
+## Get facets by field, fields available: title, description, category, salary and location
+`http://localhost:3000/facet?field=category&title=master`
+
 ## Run test:
 ```bash
 go test internal/handlers/* -v
