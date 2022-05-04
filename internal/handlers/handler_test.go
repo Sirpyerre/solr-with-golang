@@ -17,6 +17,7 @@ var theTest = []struct {
 }{
 	{"home", "/", "GET", "", http.StatusBadRequest},
 	{"search", "/?", "GET", "title=golang&category=fulltime", http.StatusOK},
+	{"facets", "/facet?", "GET", "field=location", http.StatusOK},
 }
 
 const (
@@ -41,7 +42,7 @@ func TestHandlers(t *testing.T) {
 			t.Errorf("for %s, expected %d but got %d", test.name, test.expectedStatusCode, resp.StatusCode)
 		}
 
-		t.Logf("\t%s\tTest %v:\tShould have the expected statusCode:%v.", success, test.name, resp.StatusCode)
+		//t.Logf("\t%s\tTest %v:\tShould have the expected statusCode:%v.", success, test.name, resp.StatusCode)
 	}
 }
 
@@ -49,6 +50,7 @@ func Routers() *mux.Router {
 	router := mux.NewRouter().StrictSlash(true)
 
 	router.HandleFunc("/", IndexRoute).Methods("GET")
+	router.HandleFunc("/facet", FacetRoute).Methods("GET")
 
 	return router
 }

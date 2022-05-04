@@ -4,12 +4,14 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"log"
 	"net/http"
 )
 
 type ResponseSolr struct {
-	ResponseHeader ResponseHeader `json:"responseHeader"`
-	Response       Response       `json:"response"`
+	ResponseHeader ResponseHeader         `json:"responseHeader"`
+	Response       Response               `json:"response"`
+	FacetCounts    map[string]interface{} `json:"facet_counts"`
 }
 
 type ResponseHeader struct {
@@ -38,10 +40,10 @@ type Docs struct {
 
 const urlBase = "http://localhost:8983/solr"
 
-func GetQuery(core, query string) []Docs {
-	format := "%s/%s/query?q=%s"
+func GetQuery(core, query string) ResponseSolr {
+	format := "%s/%s/%s"
 	url := fmt.Sprintf(format, urlBase, core, query)
-
+	log.Println("url:", url)
 	client := &http.Client{}
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
@@ -65,5 +67,5 @@ func GetQuery(core, query string) []Docs {
 		fmt.Println("unmarshal error:", err)
 	}
 
-	return responseObject.Response.Docs
+	return responseObject
 }
