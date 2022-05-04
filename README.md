@@ -1,4 +1,4 @@
-# API Search engine with #GO and Apache #Solr
+# API Search with GO and Apache Solr
 
 ## Run docker compose for Apache solr
 ```bash
