@@ -15,18 +15,12 @@ var theTest = []struct {
 	params             string
 	expectedStatusCode int
 }{
-	{"home", "/", "GET", "", http.StatusBadRequest},
+	{"home", "/xsdsdsd", "GET", "", 404},
 	{"search", "/?", "GET", "title=golang&category=fulltime", http.StatusOK},
 	{"facets", "/facet?", "GET", "field=location", http.StatusOK},
 }
 
-const (
-	success = "\u2713"
-	failed  = "\u2717"
-)
-
 func TestHandlers(t *testing.T) {
-
 	ts := httptest.NewTLSServer(Routers())
 	defer ts.Close()
 
@@ -41,8 +35,6 @@ func TestHandlers(t *testing.T) {
 		if resp.StatusCode != test.expectedStatusCode {
 			t.Errorf("for %s, expected %d but got %d", test.name, test.expectedStatusCode, resp.StatusCode)
 		}
-
-		//t.Logf("\t%s\tTest %v:\tShould have the expected statusCode:%v.", success, test.name, resp.StatusCode)
 	}
 }
 

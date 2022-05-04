@@ -19,7 +19,7 @@ curl -X POST -H 'Content-Type: application/json' \
 
 ## Run project
 ```bash
-go run main.go
+./run.sh
 ```
 
 ## Get result by title, description, category, salary and location
